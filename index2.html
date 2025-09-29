@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Brazilian Activity CheckList</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('images/background.png') no-repeat center center fixed;
+      background-size: cover;
+      padding: 20px;
+    }
+
+    /* Overlay transparente para suavizar a imagem */
+    body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.6); /* branco 0% transparente */
+    z-index: -1;
+    }
+	
+	h2 {
+      background: #fff9c4; /* amarelo clarinho */
+      padding: 12px 18px;
+      border-radius: 6px;
+      display: inline-block;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .menu button {
+      background: #7b3f00;   /* marrom */
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: 0.2s;
+    }
+
+    .menu button:hover {
+      background: #a0522d;
+    }
+
+    .conteudo {
+      display: none;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      margin-top: 10px;
+      position: relative;
+    }
+
+    /* Fundo por trás da caixa quando aba activa */
+    .conteudo::before {
+      content: "";
+      background: url('images/aba-bg.jpg') no-repeat center;
+      background-size: cover;
+      opacity: 0.2;
+      top: 0; left: 0; right: 0; bottom: 0;
+      position: absolute;
+      z-index: 0;
+      border-radius: 6px;
+    }
+
+    .conteudo textarea, 
+    .conteudo .acoes {
+      position: relative;
+      z-index: 1;
+    }
+
+    .conteudo.active {
+      display: block;
+    }
+
+    .acoes {
+      margin-top: 10px;
+    }
+
+    .acoes button {
+      margin-right: 10px;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background: #ccc; /* cinza inicial */
+      color: black;
+      transition: 0.2s;
+    }
+
+    .acoes button.ok.ativo {
+      background: #2e8b57; /* verde */
+      color: white;
+    }
+
+    .acoes button.corrigir.ativo {
+      background: #b22222; /* vermelho */
+      color: white;
+    }
+
+    /* Botões globais */
+    .globais {
+      margin-top: 20px;
+    }
+
+    .globais button {
+      padding: 8px 15px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background: #444;
+      color: white;
+      transition: 0.2s;
+    }
+
+    .globais button:hover {
+      background: #222;
+    }
+	
+footer {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.footer-box {
+  display: inline-block; /* o fundo fica apenas no tamanho do texto */
+  background-color: rgba(255, 255, 255, 0.85); /* fundo branco quase transparente */
+  padding: 5px 15px; /* espaço interno ao redor do texto */
+  border-radius: 5px; /* cantos arredondados */
+  font-size: 0.9em;
+  color: #555;
+  font-style: italic;
+}
+
+
+body {
+  font-family: Arial, sans-serif;
+  background: url('images/background.png') no-repeat center center fixed;
+  background-size: cover;
+  padding: 20px;
+
+  /* NOVO: forçar o footer para o final da página */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+footer {
+  margin-top: auto;
+  margin-bottom: 15px; /* ⬅️ sobe um pouco do fundo */
+  text-align: center;
+}
+
+
+/* Responsivo para telas pequenas */
+@media (max-width: 600px) {
+  .menu {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .menu button {
+    width: 100%;
+  }
+
+  .conteudo textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .globais button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <h2>Brazilian Activity CheckList</h2>
+
+
+  <div class="menu">
+    <button onclick="mostrar('aba1')">(BR) Recharge S1 - 398</button>
+    <button onclick="mostrar('aba2')">(BR) Consume S1 - 398</button>
+    <button onclick="mostrar('aba3')">(BR) Ranking Consume S1 - 398</button>
+    <button onclick="mostrar('aba4')">(BR) Ammunition Sale S1 - 398</button>
+    <button onclick="mostrar('aba5')">(BR) Recharge Extra S1 - 398</button>
+    <button onclick="mostrar('aba6')">(BR) Consume Extra S1 - 398</button>
+    <button onclick="mostrar('aba7')">(BR) Exchange activity II S1 - 399</button>
+    <button onclick="mostrar('aba8')">(BR) Do it if you can I S1 - 398</button>
+    <button onclick="mostrar('aba9')">(BR) Do it if you can II S1 - 398</button>
+    <button onclick="mostrar('aba10')">(BR) Do it if you can III S1 - 398</button>
+    <button onclick="mostrar('aba11')">(BR) Optimization – Squad Game</button>
+    <button onclick="mostrar('aba12')">(BR) Code Tab S1 - 399</button>
+	<button onclick="mostrar('aba13')">(BR) Champions S47, 395 - 397 & 398</button>
+	<button onclick="mostrar('aba14')">(BR) Sacred Card S1 - 399</button>
+	<button onclick="mostrar('aba15')">(BR) Who's the Boss S1 - 399</button>
+	<button onclick="mostrar('aba16')">(BR) Adventure Dungeon S1 - 399</button>
+	<button onclick="mostrar('aba17')">(BR) Uncover The Instance S1 - 399</button>
+	<button onclick="mostrar('aba18')">(BR) Ammunition Sale S-399</button>
+	<button onclick="mostrar('aba19')">(BR) Do it if you can I S-399</button>
+    <button onclick="mostrar('aba20')">(BR) Do it if you can II S-399</button>
+    <button onclick="mostrar('aba21')">(BR) Do it if you can III S-399</button>
+	<button onclick="mostrar('aba22')">(BR) Recharge S-399</button>
+	<button onclick="mostrar('aba23')">(BR) Consume S-399</button>
+	<button onclick="mostrar('aba24')">(BR) Exchange activity III S-399</button>
+	
+  </div>
+
+  <!-- Conteúdos -->
+  
+   <!-- BASE 
+   
+     <div id="aba1" class="conteudo">
+    <p>(TR) Do it if you can - S1-232</p>
+    <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+    <div class="acoes">
+      <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+      <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+    </div>
+  </div>
+  
+  -->
+ <div id="aba1" class="conteudo">
+  <p>(BR) Recharge S1 - 398</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba2" class="conteudo">
+  <p>(BR) Consume S1 - 398</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba3" class="conteudo">
+  <p>(BR) Ranking Consume S1 - 398</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba4" class="conteudo">
+  <p>(BR) Ammunition Sale S1 - 398</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba5" class="conteudo">
+  <p>(BR) Recharge Extra S1 - 398</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba6" class="conteudo">
+  <p>(BR) Consume Extra S1 - 398</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba7" class="conteudo">
+  <p>(BR) Exchange activity II S1 - 399</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba8" class="conteudo">
+  <p>(BR) Do it if you can I S1 - 398</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba9" class="conteudo">
+  <p>(BR) Do it if you can II S1 - 398</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba10" class="conteudo">
+  <p>(BR) Do it if you can III S1 - 398</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba11" class="conteudo">
+  <p>(BR) Optimization – Squad Game</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba12" class="conteudo">
+  <p>(BR) Code Tab S1 - 399</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba13" class="conteudo">
+  <p>(BR) Champions S47, 395 - 397 & 398</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba14" class="conteudo">
+  <p>(BR) Sacred Card S1 - 399</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba15" class="conteudo">
+  <p>(BR) Who's the Boss S1 - 399</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba16" class="conteudo">
+  <p>(BR) Adventure Dungeon S1 - 399</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba17" class="conteudo">
+  <p>(BR) Uncover The Instance S1 - 399</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba18" class="conteudo">
+  <p>(BR) Ammunition Sale S-399</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba19" class="conteudo">
+  <p>(BR) Do it if you can I S-399</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba20" class="conteudo">
+  <p>(BR) Do it if you can II S-399</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba21" class="conteudo">
+  <p>(BR) Do it if you can III S-399</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba22" class="conteudo">
+  <p>(BR) Recharge S-399</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba23" class="conteudo">
+  <p>(BR) Consume S-399</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+<div id="aba24" class="conteudo">
+  <p>(BR) Exchange activity III S-399</p>
+  <textarea rows="3" cols="50" placeholder="Escreva aqui..."></textarea>
+  <div class="acoes">
+    <button class="ok" onclick="selecionar(this)">OK (verificado)</button>
+    <button class="corrigir" onclick="selecionar(this)">Precisa de correção</button>
+  </div>
+</div>
+
+
+  <!-- Botões globais -->
+  <div class="globais">
+    <button onclick="salvar()">Salvar</button>
+    <button onclick="resetar()">Reset</button>
+  </div>
+
+  <!-- Bibliotecas para exportação -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    function mostrar(id) {
+      document.querySelectorAll('.conteudo').forEach(div => div.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function selecionar(botao) {
+      const container = botao.parentElement;
+      container.querySelectorAll('button').forEach(btn => btn.classList.remove('ativo'));
+      botao.classList.add('ativo');
+    }
+
+    function resetar() {
+      document.querySelectorAll('textarea').forEach(t => t.value = "");
+      document.querySelectorAll('.acoes button').forEach(btn => btn.classList.remove('ativo'));
+    }
+
+    async function salvar() {
+      let dados = [];
+      document.querySelectorAll('.conteudo').forEach((aba, i) => {
+        let titulo = aba.querySelector("p").innerText;
+        let texto = aba.querySelector("textarea").value;
+        let status = "";
+        if (aba.querySelector(".ok.ativo")) status = "OK (verificado)";
+        if (aba.querySelector(".corrigir.ativo")) status = "Precisa de correção";
+        dados.push({ Aba: titulo, Texto: texto, Status: status });
+      });
+
+      // Criar Excel
+      let ws = XLSX.utils.json_to_sheet(dados);
+      let wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Turkiye Actv. Data");
+      XLSX.writeFile(wb, "Turkiye Actv. Data.xlsx");
+
+      // Criar PDF
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      dados.forEach((item, index) => {
+        doc.text(`${item.Aba}`, 10, 10 + index * 20);
+        doc.text(`Status: ${item.Status}`, 10, 16 + index * 20);
+        doc.text(`Texto: ${item.Texto}`, 10, 22 + index * 20);
+      });
+      doc.save("Turkiye Actv. Data.pdf");
+	  
+// Criar TXT em formato de tabela
+let conteudo = "";
+
+// Cabeçalho
+conteudo += "Aba".padEnd(25) + "Status".padEnd(20) + "Texto\n";
+conteudo += "-".repeat(70) + "\n";
+
+// Linhas
+dados.forEach((item) => {
+  conteudo += item.Aba.padEnd(25);
+  conteudo += item.Status.padEnd(20);
+  conteudo += item.Texto + "\n";
+});
+
+// Criar blob e salvar
+const blob = new Blob([conteudo], { type: "text/plain" });
+const link = document.createElement("a");
+link.href = URL.createObjectURL(blob);
+link.download = "Turkiye_Actv_Data.txt";
+link.click();
+    }
+  </script>
+  
+  
+<footer>
+  <div class="footer-box">
+    Elex 337, Bombom 3, All rights reserved - 2026
+  </div>
+</footer>
+</body>
+</html>
