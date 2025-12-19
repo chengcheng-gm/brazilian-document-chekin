@@ -996,7 +996,7 @@ footer {
       let ws = XLSX.utils.json_to_sheet(dados);
       let wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, "Turkiye Actv. Data");
-      XLSX.writeFile(wb, "Turkiye Actv. Data.xlsx");
+      XLSX.writeFile(wb, "Brazilian. Data.xlsx");
 
       // Criar PDF
       const { jsPDF } = window.jspdf;
@@ -1006,7 +1006,7 @@ footer {
         doc.text(`Status: ${item.Status}`, 10, 16 + index * 20);
         doc.text(`Texto: ${item.Texto}`, 10, 22 + index * 20);
       });
-      doc.save("Turkiye Actv. Data.pdf");
+      doc.save("Brazilian Actv. Data.pdf");
 	  
 // Criar TXT em formato de tabela
 let conteudo = "";
@@ -1026,7 +1026,7 @@ dados.forEach((item) => {
 const blob = new Blob([conteudo], { type: "text/plain" });
 const link = document.createElement("a");
 link.href = URL.createObjectURL(blob);
-link.download = "Turkiye_Actv_Data.txt";
+link.download = "Brazilian_Actv_Data.txt";
 link.click();
     }
   </script>
@@ -1039,6 +1039,7 @@ link.click();
 </footer>
 </body>
 </html>
+
 
 
 
